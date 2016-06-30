@@ -101,10 +101,9 @@ class RedisReporter(QueueStatReporter):
         block_key = 'current_block_{}_{}'.format(currency, algo)
         chain_key = 'chain_{}_shares'.format(self.config['chain'])
         self.redis.hincrbyfloat(block_key, chain_key, shares)
-        if not merged:
-            chain_slice = 'chain_{}_slice'.format(self.config['chain'])
-            user_shares = '{}:{}'.format(address, shares)
-            self.redis.rpush(chain_slice, user_shares)
+        chain_slice = 'chain_{}_slice'.format(self.config['chain'])
+        user_shares = '{}:{}'.format(address, shares)
+        self.redis.rpush(chain_slice, user_shares)
 
     def log_share(self, client, diff, typ, params, job=None, header_hash=None, header=None,
                   **kwargs):
