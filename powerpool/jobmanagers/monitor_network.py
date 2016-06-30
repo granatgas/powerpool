@@ -325,8 +325,7 @@ class MonitorNetwork(Jobmanager, NodeMonitorMixin):
             tree, size = bitcoin_data.make_auxpow_tree(merged_work)
             mm_hashes = [merged_work.get(tree.get(i), dict(hash=0))['hash']
                          for i in xrange(size)]
-            mm_data = '\xfa\xbemm'
-            mm_data += bitcoin_data.aux_pow_coinbase_type.pack(dict(
+            mm_data = '\xfa\xbemm' + bitcoin_data.aux_pow_coinbase_type.pack(dict(
                 merkle_root=bitcoin_data.merkle_hash(mm_hashes),
                 size=size,
                 nonce=0,
